@@ -1,14 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
-import type { ApiResponse } from '@yang-admin/shared';
+import { ApiTags } from '@nestjs/swagger';
+import { Public } from './common/decorators/public.decorator';
 
+@ApiTags('系统')
 @Controller()
 export class AppController {
+  @Public()
   @Get('health')
-  health(): ApiResponse<{ status: string; ts: number }> {
-    return {
-      code: 0,
-      message: 'ok',
-      data: { status: 'up', ts: Date.now() },
-    };
+  health() {
+    return { status: 'up', ts: Date.now() };
   }
 }

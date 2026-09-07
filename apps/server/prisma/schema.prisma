@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// 用户
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  nickname  String?
+  email     String?
+  avatar    String?
+  status    Int      @default(1) // 1 启用 0 禁用
+  roles     Role[]   @relation("UserRoles")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("sys_user")
+}
+
+/// 角色
+model Role {
+  id        Int      @id @default(autoincrement())
+  name      String
+  code      String   @unique
+  remark    String?
+  status    Int      @default(1)
+  users     User[]   @relation("UserRoles")
+  menus     Menu[]   @relation("RoleMenus")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("sys_role")
+}
+
+/// 菜单 / 权限（type: 0 目录 1 菜单 2 按钮）
+model Menu {
+  id         Int      @id @default(autoincrement())
+  parentId   Int?
+  type       Int      @default(1)
+  title      String
+  name       String?
+  path       String?
+  component  String?
+  icon       String?
+  permission String? // 权限标识，如 system:user:add
+  sort       Int      @default(0)
+  visible    Int      @default(1)
+  status     Int      @default(1)
+  roles      Role[]   @relation("RoleMenus")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("sys_menu")
+}

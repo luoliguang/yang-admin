@@ -14,6 +14,13 @@
     "build:server": "pnpm --filter @yang-admin/server build"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild", "@nestjs/core", "vue-demi"]
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "@nestjs/core",
+      "vue-demi",
+      "prisma",
+      "@prisma/client",
+      "@prisma/engines"
+    ]
   }
 }
