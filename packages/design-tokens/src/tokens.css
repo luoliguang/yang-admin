@@ -1,6 +1,137 @@
-/* yang-admin design tokens — 占位，P1 阶段扩充完整主题与暗色模式 */
+/* =========================================================================
+ * yang-admin design tokens
+ * 跨栈设计令牌：颜色 / 间距 / 圆角 / 阴影 / 字号 / 层级 + 明暗双主题。
+ * 命名空间统一 --ya-*，并把品牌色联动到 Element Plus 的 --el-* 变量。
+ * ========================================================================= */
+
 :root {
+  /* ---- 品牌主色（indigo 系）---- */
   --ya-color-primary: #4f46e5;
+  --ya-color-primary-hover: #6366f1;
+  --ya-color-primary-active: #4338ca;
+
+  /* ---- 语义色 ---- */
+  --ya-color-success: #22c55e;
+  --ya-color-warning: #f59e0b;
+  --ya-color-danger: #ef4444;
+  --ya-color-info: #64748b;
+
+  /* ---- 中性色阶（slate）---- */
+  --ya-gray-50: #f8fafc;
+  --ya-gray-100: #f1f5f9;
+  --ya-gray-200: #e2e8f0;
+  --ya-gray-300: #cbd5e1;
+  --ya-gray-400: #94a3b8;
+  --ya-gray-500: #64748b;
+  --ya-gray-600: #475569;
+  --ya-gray-700: #334155;
+  --ya-gray-800: #1e293b;
+  --ya-gray-900: #0f172a;
+
+  /* ---- 表面 / 文字（浅色主题）---- */
+  --ya-bg-page: #f5f7fa;
+  --ya-bg-container: #ffffff;
+  --ya-bg-hover: #f1f5f9;
+  --ya-text-primary: #1e293b;
+  --ya-text-regular: #475569;
+  --ya-text-secondary: #94a3b8;
+  --ya-border-color: #e5e7eb;
+  --ya-border-color-light: #eef2f6;
+
+  /* ---- 侧边栏（深色，独立于主题）---- */
+  --ya-sidebar-bg: #1a2130;
+  --ya-sidebar-bg-sub: #151b28;
+  --ya-sidebar-text: #a6adba;
+  --ya-sidebar-text-active: #ffffff;
+  --ya-sidebar-active-bg: rgba(79, 70, 229, 0.16);
+  --ya-sidebar-logo-bg: #151b28;
+
+  /* ---- 间距（4px 基准）---- */
+  --ya-spacing-xs: 4px;
+  --ya-spacing-sm: 8px;
+  --ya-spacing-md: 12px;
+  --ya-spacing-lg: 16px;
+  --ya-spacing-xl: 24px;
+  --ya-spacing-2xl: 32px;
+
+  /* ---- 圆角 ---- */
+  --ya-radius-sm: 4px;
   --ya-radius-base: 8px;
-  --ya-spacing-base: 8px;
+  --ya-radius-lg: 12px;
+  --ya-radius-full: 9999px;
+
+  /* ---- 阴影 ---- */
+  --ya-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --ya-shadow-base: 0 2px 8px rgba(15, 23, 42, 0.06);
+  --ya-shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.1);
+
+  /* ---- 字号 ---- */
+  --ya-font-xs: 12px;
+  --ya-font-sm: 13px;
+  --ya-font-base: 14px;
+  --ya-font-md: 16px;
+  --ya-font-lg: 18px;
+  --ya-font-xl: 22px;
+  --ya-font-2xl: 28px;
+
+  /* ---- 布局尺寸 ---- */
+  --ya-header-height: 56px;
+  --ya-tabs-height: 40px;
+  --ya-sidebar-width: 230px;
+  --ya-sidebar-width-collapsed: 64px;
+
+  /* ---- 层级 ---- */
+  --ya-z-sidebar: 1001;
+  --ya-z-header: 1000;
+  --ya-z-drawer: 2000;
+
+  /* ---- 过渡 ---- */
+  --ya-transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ---- 联动 Element Plus 品牌色 ---- */
+  --el-color-primary: var(--ya-color-primary);
+  --el-color-primary-light-3: #847ded;
+  --el-color-primary-light-5: #a7a3f2;
+  --el-color-primary-light-7: #cac8f7;
+  --el-color-primary-light-8: #dcdafa;
+  --el-color-primary-light-9: #edecfc;
+  --el-color-primary-dark-2: #3f38b7;
+  --el-color-success: var(--ya-color-success);
+  --el-color-warning: var(--ya-color-warning);
+  --el-color-danger: var(--ya-color-danger);
+  --el-color-error: var(--ya-color-danger);
+  --el-color-info: var(--ya-color-info);
+  --el-border-radius-base: var(--ya-radius-base);
+}
+
+/* ========================= 暗色主题 ========================= */
+html.dark {
+  --ya-color-primary: #6366f1;
+  --ya-color-primary-hover: #818cf8;
+  --ya-color-primary-active: #4f46e5;
+
+  --ya-bg-page: #0b0f17;
+  --ya-bg-container: #151b28;
+  --ya-bg-hover: #1e2635;
+  --ya-text-primary: #e6e8eb;
+  --ya-text-regular: #a6adba;
+  --ya-text-secondary: #6b7280;
+  --ya-border-color: #263042;
+  --ya-border-color-light: #1e2635;
+
+  --ya-sidebar-bg: #10151f;
+  --ya-sidebar-bg-sub: #0b0f17;
+  --ya-sidebar-logo-bg: #0b0f17;
+
+  --ya-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --ya-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --ya-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45);
+
+  --el-color-primary: var(--ya-color-primary);
+  --el-color-primary-light-3: #4547a9;
+  --el-color-primary-light-5: #323378;
+  --el-color-primary-light-7: #1e1f48;
+  --el-color-primary-light-8: #141430;
+  --el-color-primary-light-9: #0a0a18;
+  --el-color-primary-dark-2: #8285f4;
 }

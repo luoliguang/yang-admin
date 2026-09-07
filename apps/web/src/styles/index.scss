@@ -1,0 +1,73 @@
+/* 全局样式：重置 + 主题过渡 + 滚动条 */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Microsoft YaHei', sans-serif;
+  font-size: var(--ya-font-base);
+  color: var(--ya-text-primary);
+  background-color: var(--ya-bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 明暗主题切换时的平滑过渡 */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition:
+    background-color var(--ya-transition-base),
+    border-color var(--ya-transition-base),
+    color var(--ya-transition-base) !important;
+  transition-delay: 0 !important;
+}
+
+a {
+  color: var(--ya-color-primary);
+  text-decoration: none;
+}
+
+/* 细滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ya-gray-300);
+  border-radius: var(--ya-radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ya-gray-400);
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: var(--ya-gray-700);
+}
+
+/* 路由切换过渡 */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.2s ease;
+}
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateX(12px);
+}
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateX(-12px);
+}
