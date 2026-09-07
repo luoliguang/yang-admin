@@ -1,0 +1,6 @@
+{
+  "name": "@yang-admin/skills-templates",
+  "version": "0.0.0",
+  "private": true,
+  "description": "跨栈：生成后台页面的代码模板（供 AI 开发期提效使用）。P6 阶段落地。"
+}

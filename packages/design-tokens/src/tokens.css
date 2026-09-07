@@ -1,0 +1,6 @@
+/* yang-admin design tokens — 占位，P1 阶段扩充完整主题与暗色模式 */
+:root {
+  --ya-color-primary: #4f46e5;
+  --ya-radius-base: 8px;
+  --ya-spacing-base: 8px;
+}
