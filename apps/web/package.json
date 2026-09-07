@@ -12,6 +12,7 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@vueuse/core": "^11.1.0",
     "@yang-admin/design-tokens": "workspace:*",
+    "axios": "^1.7.7",
     "@yang-admin/shared": "workspace:*",
     "element-plus": "^2.8.4",
     "pinia": "^2.2.4",

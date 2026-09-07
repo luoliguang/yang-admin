@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { routes } from '@/router';
 import { useAppStore } from '@/stores/app';
+import { usePermissionStore } from '@/stores/permission';
 import SidebarItem from './SidebarItem.vue';
 
 const appStore = useAppStore();
+const permissionStore = usePermissionStore();
 const route = useRoute();
 
-// 布局路由的子路由即为菜单来源
-const menuRoutes = computed(() => routes[0].children ?? []);
+// 菜单来自后端权限树（排除按钮 type=2）
+const menuTree = computed(() =>
+  permissionStore.menus.filter((m) => m.type !== 2),
+);
 const activeMenu = computed(() => route.path);
 </script>
 
@@ -33,12 +36,7 @@ const activeMenu = computed(() => route.path);
         text-color="var(--ya-sidebar-text)"
         active-text-color="var(--ya-sidebar-text-active)"
       >
-        <SidebarItem
-          v-for="item in menuRoutes"
-          :key="item.path"
-          :item="item"
-          base-path="/"
-        />
+        <SidebarItem v-for="item in menuTree" :key="item.id" :item="item" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -82,7 +80,6 @@ const activeMenu = computed(() => route.path);
 .sidebar__scroll {
   flex: 1;
 }
-/* 去掉 el-menu 右侧默认边框 */
 .sidebar :deep(.el-menu) {
   border-right: none;
 }

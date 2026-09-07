@@ -1,55 +1,35 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
+import { setupRouterGuard } from './guard';
 
-/**
- * 路由表。meta.title / meta.icon 同时驱动侧边栏菜单与面包屑。
- * P3 阶段将改为按权限动态生成，这里先用静态路由打通布局。
- */
-export const routes: RouteRecordRaw[] = [
+/** 常量路由：无需权限即可访问 */
+export const constantRoutes: RouteRecordRaw[] = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/index.vue'),
+    meta: { title: '登录', hideMenu: true },
+  },
+  {
+    path: '/404',
+    name: 'NotFound',
+    component: () => import('@/views/error/404.vue'),
+    meta: { title: '404', hideMenu: true },
+  },
   {
     path: '/',
+    name: 'Layout',
     component: () => import('@/layouts/default/index.vue'),
     redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
-        meta: { title: '仪表盘', icon: 'Odometer', affix: true },
-      },
-      {
-        path: 'demo',
-        name: 'Demo',
-        redirect: '/demo/table',
-        meta: { title: '组件示例', icon: 'Grid' },
-        children: [
-          {
-            path: 'table',
-            name: 'DemoTable',
-            component: () => import('@/views/demo/table.vue'),
-            meta: { title: '数据表格', icon: 'List' },
-          },
-          {
-            path: 'form',
-            name: 'DemoForm',
-            component: () => import('@/views/demo/form.vue'),
-            meta: { title: '表单页', icon: 'Document' },
-          },
-        ],
-      },
-      {
-        path: 'about',
-        name: 'About',
-        component: () => import('@/views/about/index.vue'),
-        meta: { title: '关于', icon: 'InfoFilled' },
-      },
-    ],
+    children: [],
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: constantRoutes,
   scrollBehavior: () => ({ top: 0 }),
 });
+
+setupRouterGuard(router);
 
 export default router;

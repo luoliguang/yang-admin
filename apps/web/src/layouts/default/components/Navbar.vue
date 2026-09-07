@@ -1,13 +1,29 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useFullscreen } from '@vueuse/core';
+import { ElMessageBox } from 'element-plus';
 import { Fold, Expand, FullScreen, Setting, Moon, Sunny, ArrowDown } from '@element-plus/icons-vue';
 import { useAppStore } from '@/stores/app';
+import { useAuthStore } from '@/stores/auth';
 import { useTheme } from '@/composables/useTheme';
 import Breadcrumb from './Breadcrumb.vue';
 
 const appStore = useAppStore();
+const authStore = useAuthStore();
+const router = useRouter();
 const { isDark, toggleDark } = useTheme();
-const { isFullscreen, toggle: toggleFullscreen } = useFullscreen();
+const { toggle: toggleFullscreen } = useFullscreen();
+
+const displayName = computed(
+  () => authStore.userInfo?.nickname || authStore.userInfo?.username || 'Admin',
+);
+
+async function onLogout() {
+  await ElMessageBox.confirm('确定退出登录吗？', '提示', { type: 'warning' });
+  authStore.logout();
+  router.push('/login');
+}
 </script>
 
 <template>
@@ -42,14 +58,16 @@ const { isFullscreen, toggle: toggleFullscreen } = useFullscreen();
 
       <el-dropdown class="navbar__user">
         <div class="navbar__user-inner">
-          <el-avatar :size="30" src="" class="navbar__avatar">A</el-avatar>
-          <span class="navbar__username">Admin</span>
+          <el-avatar :size="30" src="" class="navbar__avatar">
+            {{ displayName.charAt(0).toUpperCase() }}
+          </el-avatar>
+          <span class="navbar__username">{{ displayName }}</span>
           <el-icon><ArrowDown /></el-icon>
         </div>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item divided>退出登录</el-dropdown-item>
+            <el-dropdown-item divided @click="onLogout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
