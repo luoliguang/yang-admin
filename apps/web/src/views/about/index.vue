@@ -2,12 +2,12 @@
 const roadmap = [
   { phase: 'P0', title: '地基', done: true },
   { phase: 'P1', title: '设计系统 + 布局骨架', done: true },
-  { phase: 'P2', title: '后端基座（NestJS + Prisma + RBAC）', done: false },
-  { phase: 'P3', title: '前端打通（登录 + 动态路由 + Mock）', done: false },
-  { phase: 'P4', title: '核心组件（ProTable / SearchForm / CrudModal）', done: false },
-  { phase: 'P5', title: '增强（图表 / 地图 / 上传 / 国际化）', done: false },
-  { phase: 'P6', title: 'AI 开发期提效（CRUD 生成 skill + MCP）', done: false },
-  { phase: 'P7', title: '文档（复用指南 + 组件文档）', done: false },
+  { phase: 'P2', title: '后端基座（NestJS + Prisma + RBAC）', done: true },
+  { phase: 'P3', title: '前端打通（登录 + 动态路由 + Mock）', done: true },
+  { phase: 'P4', title: '核心组件（ProTable / SearchForm / CrudModal）', done: true },
+  { phase: 'P5', title: '增强（图表 / 地图 / 上传 / 国际化）', done: true },
+  { phase: 'P6', title: 'AI 开发期提效（CRUD 生成 skill + MCP）', done: true },
+  { phase: 'P7', title: '文档（复用指南 + 组件文档）', done: true },
 ];
 </script>
 
