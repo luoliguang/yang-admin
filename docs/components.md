@@ -1,6 +1,8 @@
 # 配置驱动组件
 
-全部位于 `apps/web/src/components/pro`，通过 `import { ProTable, CrudModal, SearchForm, Upload } from '@/components/pro'` 使用。核心理念：**写页面 = 写配置**，不重复手写 el-table / el-form 样板。
+全部位于 `apps/web/src/components/pro`，通过 `import { ProTable, CrudModal, SearchForm, Upload, StatCard, PageHeader, DictTag } from '@/components/pro'` 使用。核心理念：**写页面 = 写配置**，不重复手写 el-table / el-form 样板。
+
+> 💡 **最快的上手方式**：启动项目后登录，进「组件中心」菜单——每个组件都有实时预览 + 可复制代码，直接拷走用。本文是文字版速查。
 
 参考完整示例：`apps/web/src/views/system/user/index.vue`（用户管理 = 搜索 + 分页 + 增删改查 + 多选角色 + 状态开关）。
 
@@ -111,3 +113,30 @@
 
 - 图表按需注册见 `components/chart/echarts.ts`
 - 中国地图 choropleth 做法见 `views/dashboard/charts.ts` 的 `mapOption()`（含区域名归一化）
+
+---
+
+## 基础组件
+
+后台高频小组件，直接引用即可：
+
+```vue
+<!-- KPI 统计卡片 -->
+<StatCard label="访问量" :value="128430" :icon="TrendCharts" color="#4f46e5" delta="+12.5%" up />
+
+<!-- 页头（右侧操作插槽） -->
+<PageHeader title="标题" subtitle="副标题"><template #extra><el-button>操作</el-button></template></PageHeader>
+
+<!-- 字典标签：按 value 匹配 options 显示带色标签 -->
+<DictTag :value="row.status" :options="[{ label:'启用', value:1, type:'success' }, { label:'禁用', value:0, type:'info' }]" />
+```
+
+## DemoBlock（组件中心用）
+
+`DemoBlock` 是「组件中心」里包裹每个示例的容器：标题 + 说明 + 实时预览 + 可折叠可复制代码。给新组件写示例时用它即可保持一致体验。
+
+```vue
+<DemoBlock title="组件名" desc="说明" :code="codeString">
+  <YourComponent />
+</DemoBlock>
+```

@@ -6,7 +6,8 @@
 ## ✨ 特性
 
 - 🎨 **设计系统先行**：统一 design tokens（色阶/间距/圆角/阴影/字号）+ 明暗双主题 + 可换品牌色
-- 🧱 **配置驱动组件**：`ProTable` / `SearchForm` / `CrudModal` / `Upload`——写页面 = 写配置
+- 🧱 **配置驱动组件**：`ProTable` / `SearchForm` / `CrudModal` / `Upload` / `StatCard` / `PageHeader` / `DictTag`——写页面 = 写配置
+- 📖 **内置组件中心**：登录后「组件中心」菜单里每个组件都有实时预览 + 可复制代码，找得到、拷了就能用
 - 🔐 **完整 RBAC**：用户 / 角色 / 菜单，JWT + 刷新令牌，接口级 `@RequirePermission` + 按钮级 `v-permission`
 - 🧭 **动态路由**：后端菜单树驱动侧边栏与路由，按权限出菜单
 - 📊 **数据可视化**：ECharts 图表 + 中国地图 choropleth（主题感知）

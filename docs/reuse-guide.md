@@ -20,9 +20,8 @@ cp -r yang-admin my-new-project && cd my-new-project && rm -rf .git && git init
 
 ## 3. 清理演示内容
 
-本基座内置了演示资源，起新项目时可删：
-- 「公告」示例：`apps/server/src/modules/notice`、`apps/web/src/views/notice`、`apps/web/src/api/notice.ts`、schema 里的 `Notice` model、seed 里对应行、`app.module` 的 `NoticeModule`
-- 「组件示例」菜单（上传/表格/表单）：seed 里的 demo 目录 + `apps/web/src/views/demo`
+本基座内置了演示内容，起新项目时可删：
+- 「组件中心」：`apps/web/src/views/components` 整个目录 + seed 里的「组件中心」菜单块。（保留 `components/*` 只是给你/别人查组件用法，上线业务系统时可删）
 - dashboard 的示例图表数据：`apps/web/src/views/dashboard/charts.ts`（换成你的真实统计接口）
 
 保留：用户/角色/菜单三套 RBAC 管理页（这是基座核心）。

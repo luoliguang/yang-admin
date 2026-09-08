@@ -57,18 +57,19 @@ async function main() {
   await buildPage('用户管理', 'SystemUser', '/system/user', 'system/user/index', 'system:user', 1);
   await buildPage('角色管理', 'SystemRole', '/system/role', 'system/role/index', 'system:role', 2);
   await buildPage('菜单管理', 'SystemMenu', '/system/menu', 'system/menu/index', 'system:menu', 3);
-  // 由 generate-crud 生成的演示资源
-  await buildPage('公告管理', 'SystemNotice', '/system/notice', 'notice/index', 'system:notice', 4);
 
-  // ---- 组件示例目录 ----
-  const demo = await prisma.menu.create({
-    data: { type: 0, title: '组件示例', path: '/demo', icon: 'Grid', sort: 3 },
+  // ---- 组件中心：组件预览 + 可复制用法（起新项目时可整块删除）----
+  const comp = await prisma.menu.create({
+    data: { type: 0, title: '组件中心', path: '/components', icon: 'Grid', sort: 3 },
   });
   await prisma.menu.createMany({
     data: [
-      { parentId: demo.id, type: 1, title: '上传示例', name: 'DemoUpload', path: '/demo/upload', component: 'demo/upload', icon: 'Document', sort: 1 },
-      { parentId: demo.id, type: 1, title: '表格示例', name: 'DemoTable', path: '/demo/table', component: 'demo/table', icon: 'List', sort: 2 },
-      { parentId: demo.id, type: 1, title: '表单示例', name: 'DemoForm', path: '/demo/form', component: 'demo/form', icon: 'Document', sort: 3 },
+      { parentId: comp.id, type: 1, title: '概览', name: 'CompOverview', path: '/components/overview', component: 'components/overview', icon: 'Grid', sort: 1 },
+      { parentId: comp.id, type: 1, title: '基础与令牌', name: 'CompBasic', path: '/components/basic', component: 'components/basic', icon: 'List', sort: 2 },
+      { parentId: comp.id, type: 1, title: 'ProTable', name: 'CompTable', path: '/components/table', component: 'components/table', icon: 'List', sort: 3 },
+      { parentId: comp.id, type: 1, title: '表单与弹窗', name: 'CompForm', path: '/components/form', component: 'components/form', icon: 'Document', sort: 4 },
+      { parentId: comp.id, type: 1, title: '文件上传', name: 'CompUpload', path: '/components/upload', component: 'components/upload', icon: 'Document', sort: 5 },
+      { parentId: comp.id, type: 1, title: '图表', name: 'CompChart', path: '/components/chart', component: 'components/chart', icon: 'Odometer', sort: 6 },
     ],
   });
 

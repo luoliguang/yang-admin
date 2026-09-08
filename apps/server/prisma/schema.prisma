@@ -38,19 +38,6 @@ model Role {
   @@map("sys_role")
 }
 
-/// 公告（演示 generate-crud 生成器）
-model Notice {
-  id        Int      @id @default(autoincrement())
-  title     String
-  type      Int      @default(1) // 1 通知 2 公告
-  content   String?
-  status    Int      @default(1)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("sys_notice")
-}
-
 /// 菜单 / 权限（type: 0 目录 1 菜单 2 按钮）
 model Menu {
   id         Int      @id @default(autoincrement())

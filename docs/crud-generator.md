@@ -48,7 +48,7 @@ node packages/skills-templates/generate-crud.mjs notice
 pnpm --filter @yang-admin/server build && pnpm --filter @yang-admin/web build
 ```
 
-> 仓库内已有完整示例：公告(Notice) 资源（`resources/notice.json`）即用本流程生成并接入。
+> 配置字段的完整格式见 [`SKILL.md`](../packages/skills-templates/SKILL.md)。
 
 ## MCP 用法
 

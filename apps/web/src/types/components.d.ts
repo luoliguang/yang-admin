@@ -9,12 +9,15 @@ declare module 'vue' {
   export interface GlobalComponents {
     Chart: typeof import('./../components/chart/Chart.vue')['default']
     CrudModal: typeof import('./../components/pro/CrudModal.vue')['default']
+    DemoBlock: typeof import('./../components/pro/DemoBlock.vue')['default']
+    DictTag: typeof import('./../components/pro/DictTag.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElCollapseTransition: typeof import('element-plus/es')['ElCollapseTransition']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDialog: typeof import('element-plus/es')['ElDialog']
@@ -44,10 +47,12 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    PageHeader: typeof import('./../components/pro/PageHeader.vue')['default']
     ProTable: typeof import('./../components/pro/ProTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SearchForm: typeof import('./../components/pro/SearchForm.vue')['default']
+    StatCard: typeof import('./../components/pro/StatCard.vue')['default']
     Upload: typeof import('./../components/pro/Upload.vue')['default']
   }
   export interface ComponentCustomProperties {

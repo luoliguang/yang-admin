@@ -16,9 +16,14 @@ const menuTree = [
     ],
   },
   {
-    id: 20, parentId: null, type: 0, title: '组件示例', path: '/demo', icon: 'Grid',
+    id: 20, parentId: null, type: 0, title: '组件中心', path: '/components', icon: 'Grid',
     children: [
-      { id: 21, parentId: 20, type: 1, title: '上传示例', name: 'DemoUpload', path: '/demo/upload', component: 'demo/upload', icon: 'Document' },
+      { id: 21, parentId: 20, type: 1, title: '概览', name: 'CompOverview', path: '/components/overview', component: 'components/overview', icon: 'Grid' },
+      { id: 22, parentId: 20, type: 1, title: '基础与令牌', name: 'CompBasic', path: '/components/basic', component: 'components/basic', icon: 'List' },
+      { id: 23, parentId: 20, type: 1, title: 'ProTable', name: 'CompTable', path: '/components/table', component: 'components/table', icon: 'List' },
+      { id: 24, parentId: 20, type: 1, title: '表单与弹窗', name: 'CompForm', path: '/components/form', component: 'components/form', icon: 'Document' },
+      { id: 25, parentId: 20, type: 1, title: '文件上传', name: 'CompUpload', path: '/components/upload', component: 'components/upload', icon: 'Document' },
+      { id: 26, parentId: 20, type: 1, title: '图表', name: 'CompChart', path: '/components/chart', component: 'components/chart', icon: 'Odometer' },
     ],
   },
 ];
