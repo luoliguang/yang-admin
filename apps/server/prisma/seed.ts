@@ -57,6 +57,8 @@ async function main() {
   await buildPage('用户管理', 'SystemUser', '/system/user', 'system/user/index', 'system:user', 1);
   await buildPage('角色管理', 'SystemRole', '/system/role', 'system/role/index', 'system:role', 2);
   await buildPage('菜单管理', 'SystemMenu', '/system/menu', 'system/menu/index', 'system:menu', 3);
+  // 由 generate-crud 生成的演示资源
+  await buildPage('公告管理', 'SystemNotice', '/system/notice', 'notice/index', 'system:notice', 4);
 
   // ---- 组件示例目录 ----
   const demo = await prisma.menu.create({

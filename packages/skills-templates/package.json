@@ -2,5 +2,16 @@
   "name": "@yang-admin/skills-templates",
   "version": "0.0.0",
   "private": true,
-  "description": "跨栈：生成后台页面的代码模板（供 AI 开发期提效使用）。P6 阶段落地。"
+  "type": "module",
+  "description": "跨栈：生成后台页面的代码模板 + CRUD 生成器 + MCP 服务（AI 开发期提效）。",
+  "bin": {
+    "yang-admin-mcp": "./mcp-server.mjs"
+  },
+  "scripts": {
+    "gen": "node generate-crud.mjs",
+    "mcp": "node mcp-server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4"
+  }
 }

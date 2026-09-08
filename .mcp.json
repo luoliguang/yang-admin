@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "yang-admin": {
+      "command": "node",
+      "args": ["packages/skills-templates/mcp-server.mjs"]
+    }
+  }
+}
