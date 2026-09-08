@@ -28,14 +28,14 @@ const data = ref<Record<string, unknown>[]>([]);
 const total = ref(0);
 const page = ref(1);
 const pageSize = ref(10);
-const searchParams = reactive<Record<string, unknown>>({});
+const searchParams = ref<Record<string, unknown>>({});
 
 const tagType = (t?: string) => t as never;
 
 async function fetchData() {
   loading.value = true;
   try {
-    const params: Record<string, unknown> = { ...searchParams };
+    const params: Record<string, unknown> = { ...searchParams.value };
     if (props.showPagination) {
       params.page = page.value;
       params.pageSize = pageSize.value;

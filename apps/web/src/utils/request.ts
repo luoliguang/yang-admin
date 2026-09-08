@@ -12,14 +12,14 @@ const service: AxiosInstance = axios.create({
   timeout: 15000,
 });
 
-// Mock 模式：脱离后端也能演示
-if (import.meta.env.VITE_USE_MOCK === 'true') {
-  import('@/mock').then(({ mockAdapter }) => {
-    service.defaults.adapter = mockAdapter;
-    // eslint-disable-next-line no-console
-    console.info('[yang-admin] Mock 模式已启用');
-  });
-}
+const mockAdapterReady =
+  import.meta.env.VITE_USE_MOCK === 'true'
+    ? import('@/mock').then(({ mockAdapter }) => {
+        service.defaults.adapter = mockAdapter;
+        // eslint-disable-next-line no-console
+        console.info('[yang-admin] Mock 模式已启用');
+      })
+    : Promise.resolve();
 
 // ---- 请求拦截：附加 token ----
 service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
@@ -27,6 +27,11 @@ service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   if (auth.token) {
     config.headers.Authorization = `Bearer ${auth.token}`;
   }
+  return config;
+});
+
+service.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
+  await mockAdapterReady;
   return config;
 });
 

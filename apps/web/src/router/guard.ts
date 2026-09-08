@@ -26,10 +26,13 @@ export function setupRouterGuard(router: Router) {
         const menuTree = await auth.fetchProfile();
         const routes = permission.generateRoutes(menuTree);
         routes.forEach((r) => router.addRoute('Layout', r));
-        // 兜底 404
-        router.addRoute({ path: '/:pathMatch(.*)*', redirect: '/404' });
         // 重新进入以命中新注册的路由
-        return { ...to, replace: true };
+        return {
+          path: to.path,
+          query: to.query,
+          hash: to.hash,
+          replace: true,
+        };
       } catch {
         auth.logout();
         return { path: '/login', query: { redirect: to.fullPath } };

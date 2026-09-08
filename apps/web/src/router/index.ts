@@ -22,6 +22,12 @@ export const constantRoutes: RouteRecordRaw[] = [
     redirect: '/dashboard',
     children: [],
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFoundFallback',
+    component: () => import('@/views/error/404.vue'),
+    meta: { title: '404', hideMenu: true },
+  },
 ];
 
 const router = createRouter({

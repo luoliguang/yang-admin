@@ -25,10 +25,10 @@ const sidebarWidth = computed(() =>
         <TabsView />
       </header>
       <main class="layout__content">
-        <router-view v-slot="{ Component, route }">
+        <router-view v-slot="{ Component }">
           <transition name="fade-slide" mode="out-in">
             <keep-alive>
-              <component :is="Component" :key="route.path" />
+              <component :is="Component" />
             </keep-alive>
           </transition>
         </router-view>
