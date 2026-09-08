@@ -5,6 +5,8 @@ export { default as Upload } from './Upload.vue';
 export { default as StatCard } from './StatCard.vue';
 export { default as PageHeader } from './PageHeader.vue';
 export { default as DictTag } from './DictTag.vue';
+export { default as StatusDot } from './StatusDot.vue';
+export { default as Empty } from './Empty.vue';
 export { default as DemoBlock } from './DemoBlock.vue';
 export { default as Playground } from './Playground.vue';
 export type { PlaygroundControl } from './Playground.vue';
