@@ -14,9 +14,11 @@
     "@yang-admin/design-tokens": "workspace:*",
     "axios": "^1.7.7",
     "@yang-admin/shared": "workspace:*",
+    "echarts": "^5.5.1",
     "element-plus": "^2.8.4",
     "pinia": "^2.2.4",
     "vue": "^3.5.11",
+    "vue-echarts": "^7.0.3",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {

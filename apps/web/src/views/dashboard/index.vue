@@ -1,5 +1,11 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { TrendCharts, User, ShoppingCart, Money } from '@element-plus/icons-vue';
+import Chart from '@/components/chart/Chart.vue';
+import { useTheme } from '@/composables/useTheme';
+import { trendOption, sourceOption, mapOption } from './charts';
+
+const { themeMode } = useTheme();
 
 const stats = [
   { label: '访问量', value: '128,430', delta: '+12.5%', up: true, icon: TrendCharts, color: '#4f46e5' },
@@ -7,6 +13,11 @@ const stats = [
   { label: '订单数', value: '9,214', delta: '-3.1%', up: false, icon: ShoppingCart, color: '#f59e0b' },
   { label: '销售额', value: '¥ 642,180', delta: '+21.7%', up: true, icon: Money, color: '#22c55e' },
 ];
+
+// 依赖 themeMode，切换主题时重算（主色随之更新）
+const trend = computed(() => (themeMode.value, trendOption()));
+const source = computed(() => (themeMode.value, sourceOption()));
+const map = computed(() => (themeMode.value, mapOption()));
 </script>
 
 <template>
@@ -33,21 +44,18 @@ const stats = [
 
     <div class="panel-grid">
       <div class="panel panel--main">
-        <div class="panel__title">趋势概览</div>
-        <div class="panel__placeholder">
-          <el-icon :size="40"><TrendCharts /></el-icon>
-          <span>图表将在 P5 阶段接入 ECharts</span>
-        </div>
+        <div class="panel__title">访问趋势（近 30 天）</div>
+        <Chart :option="trend" height="300px" />
       </div>
       <div class="panel">
-        <div class="panel__title">待办事项</div>
-        <ul class="todo">
-          <li v-for="i in 4" :key="i">
-            <span class="todo__dot" />
-            示例待办任务 {{ i }}
-          </li>
-        </ul>
+        <div class="panel__title">访问来源</div>
+        <Chart :option="source" height="300px" />
       </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel__title">访客地区分布</div>
+      <Chart :option="map" height="460px" />
     </div>
   </div>
 </template>
@@ -119,6 +127,7 @@ const stats = [
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: var(--ya-spacing-lg);
+  margin-bottom: var(--ya-spacing-lg);
 }
 .panel {
   background: var(--ya-bg-container);
@@ -132,40 +141,6 @@ const stats = [
   font-weight: 600;
   color: var(--ya-text-primary);
   margin-bottom: var(--ya-spacing-lg);
-}
-.panel__placeholder {
-  height: 260px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--ya-spacing-md);
-  color: var(--ya-text-secondary);
-  border: 1px dashed var(--ya-border-color);
-  border-radius: var(--ya-radius-base);
-}
-.todo {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.todo li {
-  display: flex;
-  align-items: center;
-  gap: var(--ya-spacing-md);
-  padding: var(--ya-spacing-md) 0;
-  border-bottom: 1px solid var(--ya-border-color-light);
-  color: var(--ya-text-regular);
-  font-size: var(--ya-font-base);
-}
-.todo li:last-child {
-  border-bottom: none;
-}
-.todo__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: var(--ya-radius-full);
-  background: var(--ya-color-primary);
 }
 
 @media (max-width: 1100px) {

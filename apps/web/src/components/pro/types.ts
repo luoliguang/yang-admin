@@ -30,7 +30,7 @@ export interface FormField {
   /** 透传给底层 Element 组件的额外属性 */
   props?: Record<string, unknown>;
   /** treeSelect 的树数据 */
-  treeData?: unknown[];
+  treeData?: any[];
   /** 默认值（新增时填充） */
   defaultValue?: unknown;
 }
