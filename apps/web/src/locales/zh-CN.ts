@@ -1,0 +1,37 @@
+export default {
+  common: {
+    confirm: '确定',
+    cancel: '取消',
+    search: '查询',
+    reset: '重置',
+    add: '新增',
+    edit: '编辑',
+    delete: '删除',
+    refresh: '刷新',
+    tip: '提示',
+    success: '操作成功',
+  },
+  login: {
+    title: 'yang-admin',
+    subtitle: '通用型全栈中后台基座',
+    username: '用户名',
+    password: '密码',
+    submit: '登录',
+    hint: '默认账号 admin / admin123',
+    success: '登录成功',
+  },
+  navbar: {
+    fullscreen: '全屏',
+    theme: '主题',
+    settings: '主题设置',
+    profile: '个人中心',
+    logout: '退出登录',
+    logoutConfirm: '确定退出登录吗？',
+    language: '语言',
+  },
+  upload: {
+    title: '文件上传示例',
+    tip: '点击方框选择图片上传，走真实后端接口（限 5MB 图片）。',
+    result: '上传结果',
+  },
+};

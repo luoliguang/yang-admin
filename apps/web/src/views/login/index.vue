@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
 import { User, Lock } from '@element-plus/icons-vue';
 import { useAuthStore } from '@/stores/auth';
@@ -8,6 +9,7 @@ import { useAuthStore } from '@/stores/auth';
 const auth = useAuthStore();
 const router = useRouter();
 const route = useRoute();
+const { t } = useI18n();
 
 const formRef = ref<FormInstance>();
 const loading = ref(false);
@@ -23,7 +25,7 @@ async function onSubmit() {
   loading.value = true;
   try {
     await auth.login(form);
-    ElMessage.success('登录成功');
+    ElMessage.success(t('login.success'));
     const redirect = (route.query.redirect as string) || '/';
     router.push(redirect);
   } finally {
@@ -37,26 +39,26 @@ async function onSubmit() {
     <div class="login__card">
       <div class="login__brand">
         <div class="login__logo">Y</div>
-        <h1>yang-admin</h1>
-        <p>通用型全栈中后台基座</p>
+        <h1>{{ t('login.title') }}</h1>
+        <p>{{ t('login.subtitle') }}</p>
       </div>
       <el-form ref="formRef" :model="form" :rules="rules" size="large" @keyup.enter="onSubmit">
         <el-form-item prop="username">
-          <el-input v-model="form.username" placeholder="用户名" :prefix-icon="User" />
+          <el-input v-model="form.username" :placeholder="t('login.username')" :prefix-icon="User" />
         </el-form-item>
         <el-form-item prop="password">
           <el-input
             v-model="form.password"
             type="password"
-            placeholder="密码"
+            :placeholder="t('login.password')"
             :prefix-icon="Lock"
             show-password
           />
         </el-form-item>
         <el-button type="primary" class="login__btn" :loading="loading" @click="onSubmit">
-          登 录
+          {{ t('login.submit') }}
         </el-button>
-        <p class="login__hint">默认账号 admin / admin123</p>
+        <p class="login__hint">{{ t('login.hint') }}</p>
       </el-form>
     </div>
   </div>

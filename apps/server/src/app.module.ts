@@ -7,6 +7,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { MenusModule } from './modules/menus/menus.module';
+import { UploadModule } from './modules/upload/upload.module';
 import { JwtAuthGuard } from './modules/auth/jwt-auth.guard';
 import { PermissionGuard } from './modules/auth/permission.guard';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
@@ -20,6 +21,7 @@ import { AllExceptionFilter } from './common/filters/all-exception.filter';
     UsersModule,
     RolesModule,
     MenusModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,0 +1,37 @@
+export default {
+  common: {
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+    search: 'Search',
+    reset: 'Reset',
+    add: 'Add',
+    edit: 'Edit',
+    delete: 'Delete',
+    refresh: 'Refresh',
+    tip: 'Notice',
+    success: 'Success',
+  },
+  login: {
+    title: 'yang-admin',
+    subtitle: 'General-purpose full-stack admin starter',
+    username: 'Username',
+    password: 'Password',
+    submit: 'Sign in',
+    hint: 'Default account: admin / admin123',
+    success: 'Signed in',
+  },
+  navbar: {
+    fullscreen: 'Fullscreen',
+    theme: 'Theme',
+    settings: 'Settings',
+    profile: 'Profile',
+    logout: 'Logout',
+    logoutConfirm: 'Are you sure to logout?',
+    language: 'Language',
+  },
+  upload: {
+    title: 'File Upload Demo',
+    tip: 'Click the box to pick an image; it uploads via the real backend (image, max 5MB).',
+    result: 'Result',
+  },
+};

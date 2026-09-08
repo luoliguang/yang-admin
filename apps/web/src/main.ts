@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
+import { i18n } from './locales';
 import { setupDirectives } from './directives/permission';
 
 // 设计令牌（明暗双主题）
@@ -14,5 +15,6 @@ import './styles/index.scss';
 const app = createApp(App);
 app.use(createPinia());
 app.use(router);
+app.use(i18n);
 setupDirectives(app);
 app.mount('#app');

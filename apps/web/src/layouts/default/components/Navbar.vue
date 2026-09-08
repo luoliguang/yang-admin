@@ -1,26 +1,34 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { useFullscreen } from '@vueuse/core';
 import { ElMessageBox } from 'element-plus';
 import { Fold, Expand, FullScreen, Setting, Moon, Sunny, ArrowDown } from '@element-plus/icons-vue';
 import { useAppStore } from '@/stores/app';
 import { useAuthStore } from '@/stores/auth';
 import { useTheme } from '@/composables/useTheme';
+import { setLocale, localeStore, type LocaleKey } from '@/locales';
 import Breadcrumb from './Breadcrumb.vue';
 
 const appStore = useAppStore();
 const authStore = useAuthStore();
 const router = useRouter();
+const { t } = useI18n();
 const { isDark, toggleDark } = useTheme();
 const { toggle: toggleFullscreen } = useFullscreen();
 
 const displayName = computed(
   () => authStore.userInfo?.nickname || authStore.userInfo?.username || 'Admin',
 );
+const langLabel = computed(() => (localeStore.value === 'en-US' ? 'EN' : '中'));
+
+function switchLang(l: LocaleKey) {
+  setLocale(l);
+}
 
 async function onLogout() {
-  await ElMessageBox.confirm('确定退出登录吗？', '提示', { type: 'warning' });
+  await ElMessageBox.confirm(t('navbar.logoutConfirm'), t('common.tip'), { type: 'warning' });
   authStore.logout();
   router.push('/login');
 }
@@ -37,23 +45,29 @@ async function onLogout() {
     </div>
 
     <div class="navbar__right">
-      <el-tooltip content="全屏" placement="bottom">
-        <el-icon class="navbar__action" @click="toggleFullscreen">
-          <FullScreen />
-        </el-icon>
+      <el-tooltip :content="t('navbar.fullscreen')" placement="bottom">
+        <el-icon class="navbar__action" @click="toggleFullscreen"><FullScreen /></el-icon>
       </el-tooltip>
 
-      <el-tooltip :content="isDark() ? '切换到浅色' : '切换到深色'" placement="bottom">
+      <el-dropdown class="navbar__lang" @command="switchLang">
+        <span class="navbar__action navbar__lang-btn">{{ langLabel }}</span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="zh-CN" :disabled="localeStore === 'zh-CN'">简体中文</el-dropdown-item>
+            <el-dropdown-item command="en-US" :disabled="localeStore === 'en-US'">English</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+
+      <el-tooltip :content="isDark() ? 'Light' : 'Dark'" placement="bottom">
         <el-icon class="navbar__action" @click="toggleDark">
           <Sunny v-if="isDark()" />
           <Moon v-else />
         </el-icon>
       </el-tooltip>
 
-      <el-tooltip content="主题设置" placement="bottom">
-        <el-icon class="navbar__action" @click="appStore.openSettings">
-          <Setting />
-        </el-icon>
+      <el-tooltip :content="t('navbar.settings')" placement="bottom">
+        <el-icon class="navbar__action" @click="appStore.openSettings"><Setting /></el-icon>
       </el-tooltip>
 
       <el-dropdown class="navbar__user">
@@ -66,8 +80,8 @@ async function onLogout() {
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item divided @click="onLogout">退出登录</el-dropdown-item>
+            <el-dropdown-item>{{ t('navbar.profile') }}</el-dropdown-item>
+            <el-dropdown-item divided @click="onLogout">{{ t('navbar.logout') }}</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -117,6 +131,10 @@ async function onLogout() {
 .navbar__action:hover {
   color: var(--ya-color-primary);
   background: var(--ya-bg-hover);
+}
+.navbar__lang-btn {
+  font-size: 14px;
+  font-weight: 600;
 }
 .navbar__user {
   margin-left: var(--ya-spacing-sm);

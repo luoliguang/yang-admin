@@ -58,6 +58,18 @@ async function main() {
   await buildPage('角色管理', 'SystemRole', '/system/role', 'system/role/index', 'system:role', 2);
   await buildPage('菜单管理', 'SystemMenu', '/system/menu', 'system/menu/index', 'system:menu', 3);
 
+  // ---- 组件示例目录 ----
+  const demo = await prisma.menu.create({
+    data: { type: 0, title: '组件示例', path: '/demo', icon: 'Grid', sort: 3 },
+  });
+  await prisma.menu.createMany({
+    data: [
+      { parentId: demo.id, type: 1, title: '上传示例', name: 'DemoUpload', path: '/demo/upload', component: 'demo/upload', icon: 'Document', sort: 1 },
+      { parentId: demo.id, type: 1, title: '表格示例', name: 'DemoTable', path: '/demo/table', component: 'demo/table', icon: 'List', sort: 2 },
+      { parentId: demo.id, type: 1, title: '表单示例', name: 'DemoForm', path: '/demo/form', component: 'demo/form', icon: 'Document', sort: 3 },
+    ],
+  });
+
   // ---- 角色：管理员拥有全部菜单 ----
   const allMenus = await prisma.menu.findMany({ select: { id: true } });
   const adminRole = await prisma.role.create({
