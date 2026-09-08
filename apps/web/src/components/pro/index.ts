@@ -6,4 +6,6 @@ export { default as StatCard } from './StatCard.vue';
 export { default as PageHeader } from './PageHeader.vue';
 export { default as DictTag } from './DictTag.vue';
 export { default as DemoBlock } from './DemoBlock.vue';
+export { default as Playground } from './Playground.vue';
+export type { PlaygroundControl } from './Playground.vue';
 export * from './types';

@@ -131,6 +131,22 @@
 <DictTag :value="row.status" :options="[{ label:'启用', value:1, type:'success' }, { label:'禁用', value:0, type:'info' }]" />
 ```
 
+## Playground（交互演练场）
+
+`Playground` 让组件的 props/样式**可视化实时调试**：配一组控件（开关/下拉/颜色/滑块/文本），左侧实时预览，下方代码同步生成、可复制。示例见「组件中心 → 交互演练场」(`views/components/playground.vue`)。
+
+```vue
+<Playground title="StatCard" :controls="controls" :state="state" :code="genCode">
+  <template #default="{ state }">
+    <StatCard :label="state.label" :color="state.color" ... />
+  </template>
+</Playground>
+
+// controls: PlaygroundControl[]  type = switch|select|text|number|color|slider|segmented
+// state: 父组件持有的响应式对象，控件直接改它
+// code(state): 依据当前属性返回代码字符串
+```
+
 ## DemoBlock（组件中心用）
 
 `DemoBlock` 是「组件中心」里包裹每个示例的容器：标题 + 说明 + 实时预览 + 可折叠可复制代码。给新组件写示例时用它即可保持一致体验。

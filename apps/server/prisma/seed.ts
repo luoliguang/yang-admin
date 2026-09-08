@@ -65,6 +65,7 @@ async function main() {
   await prisma.menu.createMany({
     data: [
       { parentId: comp.id, type: 1, title: '概览', name: 'CompOverview', path: '/components/overview', component: 'components/overview', icon: 'Grid', sort: 1 },
+      { parentId: comp.id, type: 1, title: '交互演练场', name: 'CompPlayground', path: '/components/playground', component: 'components/playground', icon: 'Odometer', sort: 2 },
       { parentId: comp.id, type: 1, title: '基础与令牌', name: 'CompBasic', path: '/components/basic', component: 'components/basic', icon: 'List', sort: 2 },
       { parentId: comp.id, type: 1, title: 'ProTable', name: 'CompTable', path: '/components/table', component: 'components/table', icon: 'List', sort: 3 },
       { parentId: comp.id, type: 1, title: '表单与弹窗', name: 'CompForm', path: '/components/form', component: 'components/form', icon: 'Document', sort: 4 },

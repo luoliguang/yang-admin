@@ -6,6 +6,12 @@ const router = useRouter();
 
 const groups = [
   {
+    title: '交互演练场',
+    items: [
+      { name: '🎛 Playground', desc: '实时调 props/样式看效果，代码同步生成', path: '/components/playground' },
+    ],
+  },
+  {
     title: '业务级组件',
     items: [
       { name: 'ProTable', desc: '配置驱动表格：搜索 + 分页 + 工具栏 + 树表', path: '/components/table' },
