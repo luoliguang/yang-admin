@@ -23,6 +23,12 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  css: {
+    preprocessorOptions: {
+      // 使用 Dart Sass 新版 API，消除 legacy-js-api 弃用警告
+      scss: { api: 'modern' },
+    },
+  },
   server: {
     port: 5173,
     proxy: {

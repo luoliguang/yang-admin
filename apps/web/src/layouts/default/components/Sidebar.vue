@@ -72,7 +72,7 @@ const activeMenu = computed(() => route.path);
   justify-content: center;
 }
 .sidebar__logo-text {
-  color: #fff;
+  color: var(--ya-sidebar-logo-text, #fff);
   font-size: var(--ya-font-md);
   font-weight: 600;
   letter-spacing: 0.3px;
@@ -97,7 +97,7 @@ const activeMenu = computed(() => route.path);
 }
 .sidebar :deep(.el-menu-item:hover),
 .sidebar :deep(.el-sub-menu__title:hover) {
-  background: rgba(255, 255, 255, 0.04) !important;
+  background: var(--ya-sidebar-hover-bg, rgba(255, 255, 255, 0.04)) !important;
 }
 .fade-enter-active,
 .fade-leave-active {

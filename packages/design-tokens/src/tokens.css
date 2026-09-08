@@ -38,13 +38,15 @@
   --ya-border-color: #e5e7eb;
   --ya-border-color-light: #eef2f6;
 
-  /* ---- 侧边栏（深色，独立于主题）---- */
-  --ya-sidebar-bg: #1a2130;
-  --ya-sidebar-bg-sub: #151b28;
-  --ya-sidebar-text: #a6adba;
-  --ya-sidebar-text-active: #ffffff;
-  --ya-sidebar-active-bg: rgba(79, 70, 229, 0.16);
-  --ya-sidebar-logo-bg: #151b28;
+  /* ---- 侧边栏（浅色主题：浅底深字，随主题切换）---- */
+  --ya-sidebar-bg: #ffffff;
+  --ya-sidebar-bg-sub: #f1f5f9;
+  --ya-sidebar-text: #475569;
+  --ya-sidebar-text-active: var(--ya-color-primary);
+  --ya-sidebar-logo-text: #1e293b;
+  --ya-sidebar-active-bg: rgba(79, 70, 229, 0.1);
+  --ya-sidebar-hover-bg: rgba(15, 23, 42, 0.04);
+  --ya-sidebar-logo-bg: #ffffff;
 
   /* ---- 间距（4px 基准）---- */
   --ya-spacing-xs: 4px;
@@ -121,6 +123,10 @@ html.dark {
 
   --ya-sidebar-bg: #10151f;
   --ya-sidebar-bg-sub: #0b0f17;
+  --ya-sidebar-text: #a6adba;
+  --ya-sidebar-text-active: #ffffff;
+  --ya-sidebar-logo-text: #ffffff;
+  --ya-sidebar-hover-bg: rgba(255, 255, 255, 0.05);
   --ya-sidebar-logo-bg: #0b0f17;
 
   --ya-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);

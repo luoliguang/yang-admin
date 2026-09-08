@@ -25,12 +25,10 @@ const sidebarWidth = computed(() =>
         <TabsView />
       </header>
       <main class="layout__content">
-        <router-view v-slot="{ Component }">
-          <transition name="fade-slide" mode="out-in">
-            <keep-alive>
-              <component :is="Component" />
-            </keep-alive>
-          </transition>
+        <router-view v-slot="{ Component, route }">
+          <keep-alive>
+            <component :is="Component" :key="route.path" />
+          </keep-alive>
         </router-view>
       </main>
     </div>
@@ -48,6 +46,7 @@ const sidebarWidth = computed(() =>
   flex-shrink: 0;
   height: 100%;
   background: var(--ya-sidebar-bg);
+  border-right: 1px solid var(--ya-border-color-light);
   transition: width var(--ya-transition-base);
   z-index: var(--ya-z-sidebar);
 }

@@ -98,6 +98,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div>
   <ProTable
     ref="tableRef"
     :columns="columns"
@@ -123,4 +124,5 @@ onMounted(async () => {
     :submit="submit"
     @submitted="tableRef?.reload()"
   />
+  </div>
 </template>

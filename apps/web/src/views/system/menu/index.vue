@@ -94,6 +94,7 @@ async function onDelete(row: MenuNode | Record<string, any>) {
 </script>
 
 <template>
+  <div>
   <ProTable
     ref="tableRef"
     :columns="columns"
@@ -123,4 +124,5 @@ async function onDelete(row: MenuNode | Record<string, any>) {
     width="620px"
     @submitted="tableRef?.reload()"
   />
+  </div>
 </template>
