@@ -13,14 +13,17 @@
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { ListToolsRequestSchema, CallToolRequestSchema } from '@modelcontextprotocol/sdk/types.js';
-import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const RES_DIR = join(__dirname, 'resources');
+const VIEW_DIR = join(__dirname, 'views');
 const GEN = join(__dirname, 'generate-crud.mjs');
+const GEN_VIEW = join(__dirname, 'generate-view.mjs');
+const CATALOG = join(__dirname, 'catalog.md');
 
 const server = new Server(
   { name: 'yang-admin', version: '1.0.0' },
@@ -62,6 +65,33 @@ const TOOLS = [
       properties: { name: { type: 'string', description: '资源名（对应 resources/<name>.json）' } },
     },
   },
+  {
+    name: 'list_components',
+    description: '返回组件目录(catalog.md)：可用页面积木(blocks)与底层组件，供组件级 vibecoding 组合页面参考。',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'scaffold_view',
+    description: '写入一份视图规格 json(views/<name>.json)。blocks 见 catalog.md。',
+    inputSchema: {
+      type: 'object',
+      required: ['name', 'title', 'blocks'],
+      properties: {
+        name: { type: 'string', description: '视图名（小写）' },
+        title: { type: 'string', description: '页面标题' },
+        blocks: { type: 'array', description: '页面积木数组，见 catalog.md', items: { type: 'object' } },
+      },
+    },
+  },
+  {
+    name: 'generate_view',
+    description: '依据视图规格用组件库积木生成一个可运行页面 .vue（组件级 vibecoding，非复制）。',
+    inputSchema: {
+      type: 'object',
+      required: ['name'],
+      properties: { name: { type: 'string', description: '视图名（对应 views/<name>.json）' } },
+    },
+  },
 ];
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({ tools: TOOLS }));
@@ -87,6 +117,24 @@ server.setRequestHandler(CallToolRequestSchema, async (req) => {
 
     if (name === 'generate_crud') {
       const out = execFileSync('node', [GEN, args.name], { encoding: 'utf-8' });
+      return { content: [{ type: 'text', text: out }] };
+    }
+
+    if (name === 'list_components') {
+      const text = existsSync(CATALOG) ? readFileSync(CATALOG, 'utf-8') : '（缺少 catalog.md）';
+      return { content: [{ type: 'text', text }] };
+    }
+
+    if (name === 'scaffold_view') {
+      const { name: view, ...rest } = args;
+      mkdirSync(VIEW_DIR, { recursive: true });
+      const path = join(VIEW_DIR, `${view}.json`);
+      writeFileSync(path, JSON.stringify({ name: view, ...rest }, null, 2));
+      return { content: [{ type: 'text', text: `已写入视图规格: views/${view}.json` }] };
+    }
+
+    if (name === 'generate_view') {
+      const out = execFileSync('node', [GEN_VIEW, args.name], { encoding: 'utf-8' });
       return { content: [{ type: 'text', text: out }] };
     }
 

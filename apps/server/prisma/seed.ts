@@ -71,6 +71,7 @@ async function main() {
       { parentId: comp.id, type: 1, title: '表单与弹窗', name: 'CompForm', path: '/components/form', component: 'components/form', icon: 'Document', sort: 4 },
       { parentId: comp.id, type: 1, title: '文件上传', name: 'CompUpload', path: '/components/upload', component: 'components/upload', icon: 'Document', sort: 5 },
       { parentId: comp.id, type: 1, title: '图表', name: 'CompChart', path: '/components/chart', component: 'components/chart', icon: 'Odometer', sort: 6 },
+      { parentId: comp.id, type: 1, title: '生成示例·订单概览', name: 'GenOrderOverview', path: '/components/order-overview', component: 'order-overview/index', icon: 'ShoppingCart', sort: 7 },
     ],
   });
 

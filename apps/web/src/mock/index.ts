@@ -25,6 +25,7 @@ const menuTree = [
       { id: 24, parentId: 20, type: 1, title: '表单与弹窗', name: 'CompForm', path: '/components/form', component: 'components/form', icon: 'Document' },
       { id: 25, parentId: 20, type: 1, title: '文件上传', name: 'CompUpload', path: '/components/upload', component: 'components/upload', icon: 'Document' },
       { id: 26, parentId: 20, type: 1, title: '图表', name: 'CompChart', path: '/components/chart', component: 'components/chart', icon: 'Odometer' },
+      { id: 28, parentId: 20, type: 1, title: '生成示例·订单概览', name: 'GenOrderOverview', path: '/components/order-overview', component: 'order-overview/index', icon: 'ShoppingCart' },
     ],
   },
 ];

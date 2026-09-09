@@ -13,6 +13,7 @@ import {
   Close,
   CircleClose,
   ArrowDown,
+  ShoppingCart,
   Menu as MenuIcon,
 } from '@element-plus/icons-vue';
 import type { Component } from 'vue';
@@ -33,6 +34,7 @@ export const iconMap: Record<string, Component> = {
   Close,
   CircleClose,
   ArrowDown,
+  ShoppingCart,
   Menu: MenuIcon,
 };
 
