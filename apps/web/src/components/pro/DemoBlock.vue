@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { ElMessage } from 'element-plus';
-import { DocumentCopy, ArrowDown, ArrowUp, MagicStick } from '@element-plus/icons-vue';
+import { DocumentCopy, ArrowDown, ArrowUp, MagicStick, Select } from '@element-plus/icons-vue';
 import { buildAiPrompt } from '@/utils/aiPrompt';
+import { useCopy } from '@/composables/useCopy';
 
 const props = defineProps<{
   title: string;
@@ -11,23 +11,18 @@ const props = defineProps<{
 }>();
 
 const showCode = ref(false);
+const { isCopied, copy } = useCopy();
 
-async function writeClipboard(text: string, tip: string) {
-  try {
-    await navigator.clipboard.writeText(text);
-    ElMessage.success(tip);
-  } catch {
-    ElMessage.error('复制失败');
-  }
-}
-
-function copy() {
-  if (props.code) writeClipboard(props.code, '已复制代码');
+function copyCode() {
+  if (props.code) copy(props.code, { tip: '已复制代码', key: 'code' });
 }
 
 function copyForAi() {
   if (!props.code) return;
-  writeClipboard(buildAiPrompt({ title: props.title, code: props.code, desc: props.desc }), '已复制 AI 指令，粘给 AI 即可');
+  copy(buildAiPrompt({ title: props.title, code: props.code, desc: props.desc }), {
+    tip: '已复制 AI 指令，粘给 AI 即可',
+    key: 'ai',
+  });
 }
 </script>
 
@@ -42,8 +37,22 @@ function copyForAi() {
         <el-button text :icon="showCode ? ArrowUp : ArrowDown" @click="showCode = !showCode">
           {{ showCode ? '收起代码' : '查看代码' }}
         </el-button>
-        <el-button text :icon="DocumentCopy" @click="copy">复制</el-button>
-        <el-button text type="primary" :icon="MagicStick" @click="copyForAi">复制为 AI 指令</el-button>
+        <el-button
+          text
+          :type="isCopied('code') ? 'success' : ''"
+          :icon="isCopied('code') ? Select : DocumentCopy"
+          @click="copyCode"
+        >
+          {{ isCopied('code') ? '已复制 ✓' : '复制' }}
+        </el-button>
+        <el-button
+          text
+          :type="isCopied('ai') ? 'success' : 'primary'"
+          :icon="isCopied('ai') ? Select : MagicStick"
+          @click="copyForAi"
+        >
+          {{ isCopied('ai') ? '已复制 ✓' : '复制为 AI 指令' }}
+        </el-button>
       </div>
     </div>
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ElMessage } from 'element-plus';
-import { DocumentCopy, MagicStick } from '@element-plus/icons-vue';
+import { DocumentCopy, MagicStick, Select } from '@element-plus/icons-vue';
 import { buildAiPrompt } from '@/utils/aiPrompt';
+import { useCopy } from '@/composables/useCopy';
 
 export interface PlaygroundControl {
   key: string;
@@ -23,25 +23,18 @@ const props = defineProps<{
   code?: (state: Record<string, any>) => string;
 }>();
 
-async function writeClipboard(text: string, tip: string) {
-  try {
-    await navigator.clipboard.writeText(text);
-    ElMessage.success(tip);
-  } catch {
-    ElMessage.error('复制失败');
-  }
-}
+const { isCopied, copy } = useCopy();
 
-function copy() {
-  if (props.code) writeClipboard(props.code(props.state), '已复制代码');
+function copyCode() {
+  if (props.code) copy(props.code(props.state), { tip: '已复制代码', key: 'code' });
 }
 
 function copyForAi() {
   if (!props.code) return;
-  writeClipboard(
-    buildAiPrompt({ title: props.title, code: props.code(props.state), desc: props.desc }),
-    '已复制 AI 指令，粘给 AI 即可',
-  );
+  copy(buildAiPrompt({ title: props.title, code: props.code(props.state), desc: props.desc }), {
+    tip: '已复制 AI 指令，粘给 AI 即可',
+    key: 'ai',
+  });
 }
 </script>
 
@@ -87,8 +80,12 @@ function copyForAi() {
       <div class="pg__code-head">
         <span>实时生成的代码</span>
         <span>
-          <el-button text :icon="DocumentCopy" size="small" @click="copy">复制</el-button>
-          <el-button text type="primary" :icon="MagicStick" size="small" @click="copyForAi">复制为 AI 指令</el-button>
+          <el-button text size="small" :type="isCopied('code') ? 'success' : ''" :icon="isCopied('code') ? Select : DocumentCopy" @click="copyCode">
+            {{ isCopied('code') ? '已复制 ✓' : '复制' }}
+          </el-button>
+          <el-button text size="small" :type="isCopied('ai') ? 'success' : 'primary'" :icon="isCopied('ai') ? Select : MagicStick" @click="copyForAi">
+            {{ isCopied('ai') ? '已复制 ✓' : '复制为 AI 指令' }}
+          </el-button>
         </span>
       </div>
       <pre class="pg__code"><code>{{ code(state) }}</code></pre>

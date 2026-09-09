@@ -1,8 +1,16 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { MagicStick, Select } from '@element-plus/icons-vue';
 import { PageHeader } from '@/components/pro';
+import { buildPagePrompt } from '@/utils/aiPrompt';
+import { useCopy } from '@/composables/useCopy';
 
 const router = useRouter();
+const { isCopied, copy } = useCopy();
+
+function copyPagePrompt() {
+  copy(buildPagePrompt(), { tip: '已复制整页生成指令，补一句"我要什么页面"粘给 AI 即可', key: 'page' });
+}
 
 const groups = [
   {
@@ -32,7 +40,17 @@ const groups = [
 
 <template>
   <div>
-    <PageHeader title="组件中心" subtitle="每个组件都有实时预览 + 可复制用法，拿来即用。起新项目时可整块删除本目录。" />
+    <PageHeader title="组件中心" subtitle="每个组件都有实时预览 + 可复制用法，拿来即用。起新项目时可整块删除本目录。">
+      <template #extra>
+        <el-button
+          :type="isCopied('page') ? 'success' : 'primary'"
+          :icon="isCopied('page') ? Select : MagicStick"
+          @click="copyPagePrompt"
+        >
+          {{ isCopied('page') ? '已复制 ✓' : '复制为 AI 指令（整页生成）' }}
+        </el-button>
+      </template>
+    </PageHeader>
     <div v-for="g in groups" :key="g.title" class="group">
       <div class="group__title">{{ g.title }}</div>
       <div class="grid">

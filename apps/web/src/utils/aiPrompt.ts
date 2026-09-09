@@ -37,3 +37,32 @@ export function buildAiPrompt({ title, code, desc }: AiPromptInput): string {
   ];
   return lines.filter((l) => l !== '').join('\n');
 }
+
+/** 页面级「复制为 AI 指令」：让 AI 用组件库积木拼一整个后台页面 */
+export function buildPagePrompt(): string {
+  return [
+    '我在用 yang-admin 中后台基座（Vue 3 + Element Plus + 组件库 @/components/pro）。请用它的「页面积木」帮我拼一个后台页面。',
+    '',
+    '## 可用积木（block）',
+    '- page-header：页头 { title, subtitle }',
+    '- stat-cards：KPI 卡片行 { items: [{ label, value, color, icon, delta, up }] }',
+    '- pro-table：配置驱动表格 { columns: [{ prop, label, tag? }] }（tag:true 渲染启用/禁用标签）',
+    '- chart：图表 { kind: line|bar|pie, title }',
+    '- descriptions：详情描述 { column, items: [{ label, value }] }',
+    'icon 取值：TrendCharts / User / ShoppingCart / Money / Odometer（Element Plus 图标名）',
+    '',
+    '## 两种产出方式（任选其一，推荐 A）',
+    'A. 直接写页面：用 `@/components/pro` 的组件（PageHeader / StatCard / ProTable / CrudModal / Chart 等）写一个完整可运行的 `.vue`（含 `<script setup lang="ts">` 与 `<template>`），表格/图表用本地示例数据即可。',
+    'B. 产出视图规格：给出一份 `{ "name": "...", "title": "...", "blocks": [ ... ] }` 的 JSON，我用项目的 `node packages/skills-templates/generate-view.mjs <name>` 生成。',
+    '',
+    '## 约束',
+    '- 项目组件从 `@/components/pro` 引入；图标从 `@element-plus/icons-vue` 引入。',
+    '- 表格一律用 `ProTable`（columns + request 配置驱动），不手写 el-table 样板。',
+    '- 只用项目设计令牌，不额外写死颜色/间距。',
+    '',
+    '## 我想要的页面',
+    '【在这里描述你的页面，例如：一个"订单概览"——顶部 3~4 个统计卡片，下面一个订单趋势折线图，再下面一个订单表格（订单号/客户/金额/状态）】',
+    '',
+    '请按上面的规范产出。',
+  ].join('\n');
+}
