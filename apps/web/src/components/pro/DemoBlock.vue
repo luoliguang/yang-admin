@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { ElMessage } from 'element-plus';
-import { DocumentCopy, ArrowDown, ArrowUp } from '@element-plus/icons-vue';
+import { DocumentCopy, ArrowDown, ArrowUp, MagicStick } from '@element-plus/icons-vue';
+import { buildAiPrompt } from '@/utils/aiPrompt';
 
 const props = defineProps<{
   title: string;
@@ -11,14 +12,22 @@ const props = defineProps<{
 
 const showCode = ref(false);
 
-async function copy() {
-  if (!props.code) return;
+async function writeClipboard(text: string, tip: string) {
   try {
-    await navigator.clipboard.writeText(props.code);
-    ElMessage.success('已复制');
+    await navigator.clipboard.writeText(text);
+    ElMessage.success(tip);
   } catch {
     ElMessage.error('复制失败');
   }
+}
+
+function copy() {
+  if (props.code) writeClipboard(props.code, '已复制代码');
+}
+
+function copyForAi() {
+  if (!props.code) return;
+  writeClipboard(buildAiPrompt({ title: props.title, code: props.code, desc: props.desc }), '已复制 AI 指令，粘给 AI 即可');
 }
 </script>
 
@@ -34,6 +43,7 @@ async function copy() {
           {{ showCode ? '收起代码' : '查看代码' }}
         </el-button>
         <el-button text :icon="DocumentCopy" @click="copy">复制</el-button>
+        <el-button text type="primary" :icon="MagicStick" @click="copyForAi">复制为 AI 指令</el-button>
       </div>
     </div>
 

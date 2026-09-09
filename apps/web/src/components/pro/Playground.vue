@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ElMessage } from 'element-plus';
-import { DocumentCopy } from '@element-plus/icons-vue';
+import { DocumentCopy, MagicStick } from '@element-plus/icons-vue';
+import { buildAiPrompt } from '@/utils/aiPrompt';
 
 export interface PlaygroundControl {
   key: string;
@@ -22,14 +23,25 @@ const props = defineProps<{
   code?: (state: Record<string, any>) => string;
 }>();
 
-async function copy() {
-  if (!props.code) return;
+async function writeClipboard(text: string, tip: string) {
   try {
-    await navigator.clipboard.writeText(props.code(props.state));
-    ElMessage.success('已复制');
+    await navigator.clipboard.writeText(text);
+    ElMessage.success(tip);
   } catch {
     ElMessage.error('复制失败');
   }
+}
+
+function copy() {
+  if (props.code) writeClipboard(props.code(props.state), '已复制代码');
+}
+
+function copyForAi() {
+  if (!props.code) return;
+  writeClipboard(
+    buildAiPrompt({ title: props.title, code: props.code(props.state), desc: props.desc }),
+    '已复制 AI 指令，粘给 AI 即可',
+  );
 }
 </script>
 
@@ -74,7 +86,10 @@ async function copy() {
     <div v-if="code" class="pg__code-wrap">
       <div class="pg__code-head">
         <span>实时生成的代码</span>
-        <el-button text :icon="DocumentCopy" size="small" @click="copy">复制</el-button>
+        <span>
+          <el-button text :icon="DocumentCopy" size="small" @click="copy">复制</el-button>
+          <el-button text type="primary" :icon="MagicStick" size="small" @click="copyForAi">复制为 AI 指令</el-button>
+        </span>
       </div>
       <pre class="pg__code"><code>{{ code(state) }}</code></pre>
     </div>
