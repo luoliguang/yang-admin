@@ -86,13 +86,21 @@ function isActive(path: string) {
   white-space: nowrap;
   transition: all var(--ya-transition-base);
 }
-.tabs__item:hover {
+/* 仅非激活标签在 hover 时变主色，避免激活态白字被改成主色而与主色背景同色（文字消失） */
+.tabs__item:not(.tabs__item--active):hover {
   color: var(--ya-color-primary);
+  border-color: var(--ya-color-primary);
+  background: var(--ya-hover-bg, rgba(0, 0, 0, 0.02));
 }
 .tabs__item--active {
   color: #fff;
   background: var(--ya-color-primary);
   border-color: var(--ya-color-primary);
+}
+/* 激活标签 hover 时保持白字，仅轻微加深背景 */
+.tabs__item--active:hover {
+  color: #fff;
+  filter: brightness(0.95);
 }
 .tabs__dot {
   width: 7px;
