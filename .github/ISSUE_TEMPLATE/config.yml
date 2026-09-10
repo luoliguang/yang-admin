@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 想法讨论 / 提问（Discussions）
+    url: https://github.com/luoliguang/yang-admin/discussions
+    about: 不确定是不是 Bug、或只是想聊聊想法？来 Discussions 更轻松。

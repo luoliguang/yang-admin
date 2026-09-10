@@ -6,6 +6,9 @@
 ## [Unreleased]
 
 ### Added
+- 开源配套：MIT `LICENSE`、`CONTRIBUTING.md`、Issue/PR 模板、README「参与共建」章节。
+- 游客模式：登录页「👤 游客体验」按钮（Mock 模式下展示），访客免登录进组件中心。
+- Vercel 在线 Demo：`vercel.json` + `pnpm build:demo`（独立 `--mode demo`，不影响真实生产构建）。
 - README 落地页化：徽章、「30 秒理解它」、「让 AI 用上我的组件库」章节。
 - 组件速查表生成器 `gen-catalog.mjs`：从 `@/components/pro` 源码自动解析 props，
   一处生成、同步注入 README 与 `catalog.md`（MCP `list_components` 随之更新）。

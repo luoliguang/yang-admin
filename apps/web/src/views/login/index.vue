@@ -13,7 +13,11 @@ const { t } = useI18n();
 
 const formRef = ref<FormInstance>();
 const loading = ref(false);
+const guestLoading = ref(false);
 const form = reactive({ username: 'admin', password: 'admin123' });
+
+// Mock 模式（在线 Demo）下展示「游客体验」入口，让访客免登录直接逛
+const isDemo = import.meta.env.VITE_USE_MOCK === 'true';
 
 const rules: FormRules = {
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -30,6 +34,18 @@ async function onSubmit() {
     router.push(redirect);
   } finally {
     loading.value = false;
+  }
+}
+
+// 游客体验：用演示账号直接登录（Mock 数据，只读体验）
+async function onGuest() {
+  guestLoading.value = true;
+  try {
+    await auth.login({ username: 'admin', password: 'admin123' });
+    ElMessage.success('已进入游客体验（演示数据）');
+    router.push('/components/overview');
+  } finally {
+    guestLoading.value = false;
   }
 }
 </script>
@@ -57,6 +73,9 @@ async function onSubmit() {
         </el-form-item>
         <el-button type="primary" class="login__btn" :loading="loading" @click="onSubmit">
           {{ t('login.submit') }}
+        </el-button>
+        <el-button v-if="isDemo" class="login__btn login__btn--guest" :loading="guestLoading" @click="onGuest">
+          👤 游客体验（演示数据）
         </el-button>
         <p class="login__hint">{{ t('login.hint') }}</p>
       </el-form>
@@ -109,6 +128,10 @@ async function onSubmit() {
 .login__btn {
   width: 100%;
   margin-top: 8px;
+  margin-left: 0;
+}
+.login__btn--guest {
+  margin-top: 10px;
 }
 .login__hint {
   text-align: center;

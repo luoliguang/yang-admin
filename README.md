@@ -11,7 +11,14 @@
 ![NestJS](https://img.shields.io/badge/NestJS-e0234e?logo=nestjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white)
 ![pnpm](https://img.shields.io/badge/pnpm-monorepo-f69220?logo=pnpm&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-22c55e)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-22c55e)
+
+**免费开源 · MIT 许可** · 拿去随便用，也欢迎你来提想法、共建组件
+
+[🔗 在线体验](#) · [🚀 快速开始](#-快速开始) · [🤝 参与共建](#-免费开源--参与共建)
+
+<sub>在线体验链接部署到 Vercel 后填入（见「参与共建」章节的部署说明）。</sub>
 
 </div>
 
@@ -135,6 +142,38 @@ pnpm dev:web
 - [架构与约定](docs/architecture.md)
 - [更新日志](CHANGELOG.md)
 
+## 🤝 免费开源 & 参与共建
+
+yang-admin 采用 **MIT 许可**，永久免费，商用/改造/二次分发都可以，只需保留版权声明。
+
+### 怎么用它起项目
+
+| 方式 | 适合 |
+|---|---|
+| 点仓库页 **Use this template** | 直接生成你自己的新仓库（推荐做基座） |
+| `git clone` 本仓库 | 想研究/改造源码 |
+| 只抄组件 | 进「组件中心」→ 组件「复制为 AI 指令」→ 喂给 AI |
+
+> 仅想逛组件、不想跑后端？在线 Demo 用 Mock 数据运行，登录页有「👤 游客体验」一键进入；本地则把 `apps/web/.env.development` 的 `VITE_USE_MOCK` 设为 `true`。
+
+### 怎么参与
+
+欢迎提想法、报 Bug、贡献组件——详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+- 💡 有想法/建议 → [Discussions](../../discussions) 或「💡 功能建议」Issue
+- 🐛 发现问题 → 「🐛 Bug 反馈」Issue
+- 🔧 贡献代码 → Fork → 改 → `pnpm check` → 发 PR
+
+### 部署在线 Demo（Vercel）
+
+让访客免登录逛组件中心：
+
+1. 到 [vercel.com](https://vercel.com) 用 GitHub 登录 → **Add New Project** → 导入本仓库
+2. 构建配置已在 `vercel.json` 写好（`pnpm build:demo`，Mock 模式，产物 `apps/web/dist`），无需手动填
+3. 部署完成后把拿到的网址填回本 README 顶部「🔗 在线体验」处
+
+> `build:demo` 走独立的 `--mode demo`（`apps/web/.env.demo`，`VITE_USE_MOCK=true`），不影响真实生产构建的 `.env.production`。
+
 ## 🗺️ 路线图
 
 | 阶段 | 内容 | 状态 |
@@ -148,4 +187,8 @@ pnpm dev:web
 | P6 | AI 开发期提效（CRUD 生成器 + Skill + MCP） | ✅ |
 | P7 | 文档 + 组件中心（vibecoding） | ✅ |
 
-后续可选：运行期 AI Copilot、React 版前端、更多业务组件、在线 Demo 部署。
+后续可选：运行期 AI Copilot、React 版前端、更多业务组件。
+
+## 📄 许可证
+
+[MIT](LICENSE) © 2026 luoliguang

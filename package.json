@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "通用型全栈中后台基座 (Vue3 + Element Plus + NestJS)",
+  "license": "MIT",
   "engines": {
     "node": ">=20",
     "pnpm": ">=9"
@@ -12,6 +13,7 @@
     "dev:server": "pnpm --filter @yang-admin/server start:dev",
     "build:web": "pnpm --filter @yang-admin/web build",
     "build:server": "pnpm --filter @yang-admin/server build",
+    "build:demo": "pnpm --filter @yang-admin/web build:demo",
     "build": "pnpm build:web && pnpm build:server",
     "gen:catalog": "node packages/skills-templates/gen-catalog.mjs",
     "check": "pnpm gen:catalog && pnpm build:web && pnpm build:server"
