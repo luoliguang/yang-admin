@@ -28,7 +28,16 @@ function switchLang(l: LocaleKey) {
 }
 
 async function onLogout() {
-  await ElMessageBox.confirm(t('navbar.logoutConfirm'), t('common.tip'), { type: 'warning' });
+  // ElMessageBox 在点「取消」时会 reject，需捕获，否则抛未处理的 Promise 异常
+  try {
+    await ElMessageBox.confirm(t('navbar.logoutConfirm'), t('common.tip'), {
+      type: 'warning',
+      confirmButtonText: t('common.confirm'),
+      cancelButtonText: t('common.cancel'),
+    });
+  } catch {
+    return; // 用户取消，不做任何事
+  }
   authStore.logout();
   router.push('/login');
 }
