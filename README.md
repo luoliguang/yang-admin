@@ -169,10 +169,10 @@ yang-admin 采用 **MIT 许可**，永久免费，商用/改造/二次分发都�
 让访客免登录逛组件中心：
 
 1. 到 [vercel.com](https://vercel.com) 用 GitHub 登录 → **Add New Project** → 导入本仓库
-2. 构建配置已在 `vercel.json` 写好（`pnpm build:demo`，Mock 模式，产物 `apps/web/dist`），无需手动填
+2. 构建配置已在 `vercel.json` 写好（`VITE_USE_MOCK=true pnpm build:web`，产物 `apps/web/dist`），无需手动填
 3. 部署完成后把拿到的网址填回本 README 顶部「🔗 在线体验」处
 
-> `build:demo` 走独立的 `--mode demo`（`apps/web/.env.demo`，`VITE_USE_MOCK=true`），不影响真实生产构建的 `.env.production`。
+> Demo 构建用**内联环境变量** `VITE_USE_MOCK=true` 开启 Mock（而非 `.env` 文件——`.env.*` 已被 gitignore，不会进仓库），因此不影响真实生产构建。本地想复现同款 Mock 构建可跑 `pnpm build:demo`。
 
 ## 🗺️ 路线图
 
