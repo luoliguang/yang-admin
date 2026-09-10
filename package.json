@@ -11,7 +11,10 @@
     "dev:web": "pnpm --filter @yang-admin/web dev",
     "dev:server": "pnpm --filter @yang-admin/server start:dev",
     "build:web": "pnpm --filter @yang-admin/web build",
-    "build:server": "pnpm --filter @yang-admin/server build"
+    "build:server": "pnpm --filter @yang-admin/server build",
+    "build": "pnpm build:web && pnpm build:server",
+    "gen:catalog": "node packages/skills-templates/gen-catalog.mjs",
+    "check": "pnpm gen:catalog && pnpm build:web && pnpm build:server"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
