@@ -11,6 +11,12 @@ export default {
     tip: 'Notice',
     success: 'Success',
   },
+  tabs: {
+    closeCurrent: 'Close current',
+    closeOthers: 'Close others',
+    closeRight: 'Close right',
+    closeAll: 'Close all',
+  },
   login: {
     title: 'yang-admin',
     subtitle: 'General-purpose full-stack admin starter',

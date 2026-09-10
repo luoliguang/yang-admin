@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { watch } from 'vue';
+import { reactive, watch, onBeforeUnmount } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { Close } from '@element-plus/icons-vue';
 import { useTabsStore } from '@/stores/tabs';
 
 const route = useRoute();
 const router = useRouter();
 const tabsStore = useTabsStore();
+const { t } = useI18n();
 
 // 路由变化即登记标签
 watch(
   () => route.path,
   () => {
     if (route.meta?.title) tabsStore.addTab(route);
+    closeMenu();
   },
   { immediate: true },
 );
@@ -29,6 +32,57 @@ function closeTab(path: string) {
 function isActive(path: string) {
   return path === route.path;
 }
+
+// ---- 右键菜单 ----
+const menu = reactive({ visible: false, x: 0, y: 0, path: '', affix: false });
+
+function openMenu(e: MouseEvent, tab: { path: string; affix?: boolean }) {
+  e.preventDefault();
+  menu.path = tab.path;
+  menu.affix = !!tab.affix;
+  menu.x = e.clientX;
+  menu.y = e.clientY;
+  menu.visible = true;
+  // 延迟注册，避免当前这次右键事件冒泡到 document 立即关闭菜单
+  setTimeout(() => {
+    document.addEventListener('click', closeMenu);
+    document.addEventListener('contextmenu', closeMenu);
+  }, 0);
+}
+
+function closeMenu() {
+  if (!menu.visible) return;
+  menu.visible = false;
+  document.removeEventListener('click', closeMenu);
+  document.removeEventListener('contextmenu', closeMenu);
+}
+
+/** 若当前路由已被关闭，则跳到 fallback */
+function ensureVisible(fallback: string) {
+  if (!tabsStore.tabs.some((tb) => tb.path === route.path)) router.push(fallback);
+}
+
+function onCloseCurrent() {
+  closeTab(menu.path);
+  closeMenu();
+}
+function onCloseOthers() {
+  tabsStore.removeOthers(menu.path);
+  ensureVisible(menu.path);
+  closeMenu();
+}
+function onCloseRight() {
+  tabsStore.removeRight(menu.path);
+  ensureVisible(menu.path);
+  closeMenu();
+}
+function onCloseAll() {
+  const last = tabsStore.closeAll();
+  ensureVisible(last?.path || '/');
+  closeMenu();
+}
+
+onBeforeUnmount(closeMenu);
 </script>
 
 <template>
@@ -41,6 +95,7 @@ function isActive(path: string) {
           class="tabs__item"
           :class="{ 'tabs__item--active': isActive(tab.path) }"
           @click="goTab(tab.path)"
+          @contextmenu="openMenu($event, tab)"
         >
           <span class="tabs__dot" />
           <span class="tabs__title">{{ tab.title }}</span>
@@ -54,6 +109,21 @@ function isActive(path: string) {
         </div>
       </div>
     </el-scrollbar>
+
+    <!-- 右键上下文菜单 -->
+    <ul
+      v-if="menu.visible"
+      class="tabs__menu"
+      :style="{ left: menu.x + 'px', top: menu.y + 'px' }"
+      @click.stop
+    >
+      <li v-if="!menu.affix" class="tabs__menu-item" @click="onCloseCurrent">
+        {{ t('tabs.closeCurrent') }}
+      </li>
+      <li class="tabs__menu-item" @click="onCloseOthers">{{ t('tabs.closeOthers') }}</li>
+      <li class="tabs__menu-item" @click="onCloseRight">{{ t('tabs.closeRight') }}</li>
+      <li class="tabs__menu-item" @click="onCloseAll">{{ t('tabs.closeAll') }}</li>
+    </ul>
   </div>
 </template>
 
@@ -119,5 +189,31 @@ function isActive(path: string) {
 }
 .tabs__close:hover {
   background: rgba(0, 0, 0, 0.15);
+}
+
+/* 右键菜单 */
+.tabs__menu {
+  position: fixed;
+  z-index: 3000;
+  min-width: 120px;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--ya-bg-container);
+  border: 1px solid var(--ya-border-color-light);
+  border-radius: var(--ya-radius-base);
+  box-shadow: var(--ya-shadow-lg);
+}
+.tabs__menu-item {
+  padding: 7px 14px;
+  font-size: var(--ya-font-sm);
+  color: var(--ya-text-regular);
+  border-radius: var(--ya-radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tabs__menu-item:hover {
+  color: var(--ya-color-primary);
+  background: var(--ya-hover-bg, rgba(0, 0, 0, 0.04));
 }
 </style>

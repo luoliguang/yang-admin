@@ -39,5 +39,18 @@ export const useTabsStore = defineStore('tabs', () => {
     tabs.value = tabs.value.filter((t) => t.affix || t.path === path);
   }
 
-  return { tabs, addTab, removeTab, removeOthers };
+  /** 关闭指定标签右侧的所有可关闭标签 */
+  function removeRight(path: string) {
+    const idx = tabs.value.findIndex((t) => t.path === path);
+    if (idx === -1) return;
+    tabs.value = tabs.value.filter((t, i) => i <= idx || t.affix);
+  }
+
+  /** 关闭所有可关闭标签，返回剩余的最后一个（供跳转） */
+  function closeAll(): TabItem | undefined {
+    tabs.value = tabs.value.filter((t) => t.affix);
+    return tabs.value[tabs.value.length - 1];
+  }
+
+  return { tabs, addTab, removeTab, removeOthers, removeRight, closeAll };
 });

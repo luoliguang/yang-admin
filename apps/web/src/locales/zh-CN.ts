@@ -11,6 +11,12 @@ export default {
     tip: '提示',
     success: '操作成功',
   },
+  tabs: {
+    closeCurrent: '关闭当前',
+    closeOthers: '关闭其他',
+    closeRight: '关闭右侧',
+    closeAll: '关闭全部',
+  },
   login: {
     title: 'yang-admin',
     subtitle: '通用型全栈中后台基座',
