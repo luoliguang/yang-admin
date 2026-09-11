@@ -10,7 +10,7 @@
  *
  * 新增组件后：在 index.ts 导出 + 在下方 META 里补一行分类/用途，再跑本脚本即可。
  */
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -20,6 +20,8 @@ const PRO_DIR = join(ROOT, 'apps', 'web', 'src', 'components', 'pro');
 const INDEX = join(PRO_DIR, 'index.ts');
 const CATALOG = join(__dirname, 'catalog.md');
 const README = join(ROOT, 'README.md');
+// 插件自带的 catalog 副本（对外可安装 skill 的参考资料，需与源保持同步）
+const PLUGIN_CATALOG = join(ROOT, 'plugins', 'yang-admin', 'skills', 'yang-admin', 'reference', 'catalog.md');
 
 /** 人工元数据：分类 + 一句话用途（代码里读不出来的部分） */
 const META = {
@@ -193,7 +195,11 @@ function main() {
   inject(CATALOG, 'COMPONENTS', `\n${stamp}\n\n${summary}\n\n${details}`);
   inject(README, 'COMPONENTS', `\n${summary}\n`);
 
-  console.log(`✓ 已生成组件速查表（${list.length} 个组件）→ catalog.md + README.md`);
+  // 同步一份到对外 skill 插件的参考资料，保持单一数据源
+  mkdirSync(dirname(PLUGIN_CATALOG), { recursive: true });
+  copyFileSync(CATALOG, PLUGIN_CATALOG);
+
+  console.log(`✓ 已生成组件速查表（${list.length} 个组件）→ catalog.md + README.md + 插件 reference`);
 }
 
 main();

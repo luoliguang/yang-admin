@@ -63,6 +63,19 @@
 
 > 组件速查表见下方「🧩 组件速查」——它由脚本从源码自动生成，AI 与人看到的是同一份真相。
 
+### 作为 Agent 技能一键安装（Claude Code）
+
+想让**别人的 AI Agent**也懂怎么用 yang-admin 搭后台？本仓库同时是一个 Claude Code 插件市场。在 Claude Code 里：
+
+```bash
+/plugin marketplace add luoliguang/yang-admin
+/plugin install yang-admin@yang-admin
+```
+
+装完，Agent 会获得 **yang-admin 技能**：掌握组件目录、工程约定、以及"写页面=写配置"的方法论，帮你在**基于 yang-admin 的项目**里快速搭建/扩展与基座风格一致的页面。
+
+> 技能定位于「基于 yang-admin 的项目」；生成器（generate-crud/view）依赖完整仓库，非完整仓库时 Agent 会按组件目录直接手写，效果一致。插件内容见 [`plugins/yang-admin`](plugins/yang-admin)。
+
 ## 🧩 组件速查
 
 <!-- COMPONENTS:START -->

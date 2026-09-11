@@ -1,0 +1,11 @@
+{
+  "name": "yang-admin",
+  "description": "让 AI/Agent 用 yang-admin 中后台基座的组件与约定快速搭建/扩展后台页面。",
+  "version": "0.1.0",
+  "author": {
+    "name": "luoliguang",
+    "url": "https://github.com/luoliguang"
+  },
+  "homepage": "https://github.com/luoliguang/yang-admin",
+  "keywords": ["admin", "dashboard", "vue3", "element-plus", "nestjs", "skill", "vibecoding"]
+}

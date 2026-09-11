@@ -6,6 +6,11 @@
 ## [Unreleased]
 
 ### Added
+- **Claude Code 插件/技能市场**：仓库即 marketplace，别人可 `/plugin marketplace add luoliguang/yang-admin`
+  + `/plugin install yang-admin@yang-admin`，让 Agent 掌握 yang-admin 组件目录与工程约定来搭后台。
+  - `.claude-plugin/marketplace.json` + `plugins/yang-admin/`（plugin.json + skills/yang-admin/SKILL.md + 自带 catalog 参考）
+  - `gen-catalog.mjs` 同步把组件目录复制进插件 reference，保持单一数据源
+- 标签页右键菜单（关闭其他/右侧/全部）。
 - 开源配套：MIT `LICENSE`、`CONTRIBUTING.md`、Issue/PR 模板、README「参与共建」章节。
 - 游客模式：登录页「👤 游客体验」按钮（Mock 模式下展示），访客免登录进组件中心。
 - Vercel 在线 Demo：`vercel.json` + `pnpm build:demo`（独立 `--mode demo`，不影响真实生产构建）。

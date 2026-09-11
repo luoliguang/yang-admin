@@ -1,0 +1,18 @@
+{
+  "name": "yang-admin",
+  "owner": {
+    "name": "luoliguang",
+    "url": "https://github.com/luoliguang"
+  },
+  "metadata": {
+    "description": "yang-admin 中后台基座的 AI/Agent 技能市场",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "yang-admin",
+      "source": "./plugins/yang-admin",
+      "description": "让 AI/Agent 掌握 yang-admin 中后台基座的组件目录与工程约定，快速搭建/扩展与基座风格一致的后台页面（Vue 3 + Element Plus + NestJS）。"
+    }
+  ]
+}
