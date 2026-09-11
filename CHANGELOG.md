@@ -6,6 +6,8 @@
 ## [Unreleased]
 
 ### Added
+- **跨 Agent 支持**：新增根目录 `AGENTS.md`（Codex/Cursor 等自动读取的通用指令）+ `docs/ai-usage.md`
+  （各 Agent 接入步骤 + 每条指令/MCP 工具作用详解 + 搭页面完整示例）；README 从"仅 Claude Code"升级为多 Agent。
 - **Claude Code 插件/技能市场**：仓库即 marketplace，别人可 `/plugin marketplace add luoliguang/yang-admin`
   + `/plugin install yang-admin@yang-admin`，让 Agent 掌握 yang-admin 组件目录与工程约定来搭后台。
   - `.claude-plugin/marketplace.json` + `plugins/yang-admin/`（plugin.json + skills/yang-admin/SKILL.md + 自带 catalog 参考）

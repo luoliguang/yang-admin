@@ -63,18 +63,23 @@
 
 > 组件速查表见下方「🧩 组件速查」——它由脚本从源码自动生成，AI 与人看到的是同一份真相。
 
-### 作为 Agent 技能一键安装（Claude Code）
+### 让任意 AI Agent 懂它（Claude Code / Codex / Cursor / 通用 MCP）
 
-想让**别人的 AI Agent**也懂怎么用 yang-admin 搭后台？本仓库同时是一个 Claude Code 插件市场。在 Claude Code 里：
+想让**别人的 AI Agent**也会用 yang-admin 搭后台？两层能力，都是跨 Agent 通用的：
 
+- **知识层**：根目录 [`AGENTS.md`](AGENTS.md) —— Codex、Cursor 等会自动读取；Claude Code 另有一键装的插件技能。
+- **工具层**：MCP 服务 `yang-admin`（`list_components` / `generate_crud` 等）—— 任何支持 MCP 的 Agent 都能接。
+
+**Claude Code**（一键装技能）：
 ```bash
 /plugin marketplace add luoliguang/yang-admin
 /plugin install yang-admin@yang-admin
 ```
 
-装完，Agent 会获得 **yang-admin 技能**：掌握组件目录、工程约定、以及"写页面=写配置"的方法论，帮你在**基于 yang-admin 的项目**里快速搭建/扩展与基座风格一致的页面。
+**Codex**（读 `AGENTS.md` + 在 `~/.codex/config.toml` 配 MCP）、**Cursor**（`.cursor/mcp.json`）、**通用 MCP 客户端**：统一用 `node packages/skills-templates/mcp-server.mjs` 启动 MCP 服务。
 
-> 技能定位于「基于 yang-admin 的项目」；生成器（generate-crud/view）依赖完整仓库，非完整仓库时 Agent 会按组件目录直接手写，效果一致。插件内容见 [`plugins/yang-admin`](plugins/yang-admin)。
+> 📖 各 Agent 的**详细接入步骤 + 每条指令/工具的作用 + 搭页面完整示例**，见 **[docs/ai-usage.md](docs/ai-usage.md)**。
+> 说明：技能定位「基于 yang-admin 的项目」；生成器依赖完整仓库，非完整仓库时 Agent 按组件目录直接手写，效果一致。
 
 ## 🧩 组件速查
 
@@ -149,6 +154,7 @@ pnpm dev:web
 
 ## 📚 文档
 
+- [用 AI / Agent 使用（Claude Code / Codex / Cursor 接入 + 指令详解）](docs/ai-usage.md)
 - [基于本基座起新项目](docs/reuse-guide.md)
 - [配置驱动组件用法](docs/components.md)（ProTable / SearchForm / CrudModal / Upload / Chart）
 - [CRUD 生成器 & MCP](docs/crud-generator.md)
